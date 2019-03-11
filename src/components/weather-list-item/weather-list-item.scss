@@ -1,0 +1,28 @@
+// @import '~assets/images/';
+
+.weather-item {
+
+    &.selected {
+        border: 1px solid grey;
+    }
+
+    .avg {
+        display: inline-block;
+        padding: 0.25rem 0.5rem;
+        &.night {
+            color: grey;
+        }
+    }
+
+    .img {
+        &-0 { background-image: url(../../assets/images/cloudy.png); }
+        &-1 { background-image: url(../../assets/images/partly_cloudy.png); }
+        &-2 { background-image: url(../../assets/images/snow.png); }
+        &-3 { background-image: url(../../assets/images/snow_light.png); }
+    }
+    .img-0,.img-1,.img-2,.img-3 {
+        height: 4.25rem;
+        width: 4.25rem;
+        background-repeat: no-repeat;
+    }
+}

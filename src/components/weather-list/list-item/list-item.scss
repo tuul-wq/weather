@@ -1,0 +1,29 @@
+// @import '~assets/images/';
+
+.weather-item {
+    padding: 0.5rem;
+    border: 1px solid transparent;
+
+    .week {
+        text-align: center;
+    }
+
+    &.selected {
+        border: 1px solid #dadada;
+        border-radius: 0.5rem;
+        background-color: #fbfbfb;
+    }
+
+    .avg {
+        display: inline-block;
+        padding: 0 0.5rem;
+        &.night {
+            color: grey;
+        }
+    }
+
+    // .weather-image {
+    //     height: 4.25rem;
+    //     width: 4.25rem;
+    // }
+}

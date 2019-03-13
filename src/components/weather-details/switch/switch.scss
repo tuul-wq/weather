@@ -1,0 +1,59 @@
+.switch {
+    display: grid;
+    justify-items: right;
+
+    .title {
+        font-size: 1.1rem;
+        font-weight: 400;
+    }
+
+    .toggle {
+        position: relative;
+        width: 65px;
+        height: 35px;
+
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background: white;
+            transition: .5s;
+            border: 2px solid white;
+            box-shadow: 1px 1px 1px rgba($color: #000000, $alpha: 0.2);
+
+            &:before {
+                position: absolute;
+                content: "";
+                top: 5px;
+                background-color: rgb(217, 217, 217);
+                transition: .5s;
+            }
+
+            &.round {
+                border-radius: 35px;
+
+                &:before {
+                    width: 40%;
+                    height: 40%;
+                    border-top-right-radius: 20px;
+                    border-top-left-radius: 20px;
+                    transform: rotateZ(-45deg);
+                }
+            }
+        }
+
+        input { display: none; }
+
+        input:checked + .slider {
+            background-color: rgb(217, 217, 217);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(37px) rotateZ(45deg);
+            background-color: rgb(255, 255, 104);
+        }
+    }
+}
+
+

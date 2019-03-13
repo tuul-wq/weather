@@ -1,0 +1,18 @@
+.weather-image {
+    background-repeat: no-repeat;
+
+    &.small {
+        height: 4rem;
+        width: 4rem;
+    }
+    &.medium {
+        height: 5rem;
+        width: 5rem;
+        background-size: 5rem;
+    }
+
+    &.cloudy { background-image: url(../../../assets/images/cloudy.png); }
+    &.partly_cloudy { background-image: url(../../../assets/images/partly_cloudy.png); }
+    &.snow { background-image: url(../../../assets/images/snow.png); }
+    &.rain_and_cloudy { background-image: url(../../../assets/images/rain_and_cloudy.png); }
+}

@@ -1,30 +1,22 @@
-import React, {Component} from 'react';
-import {weatherData} from '../../mock/data';
-import WeatherListItem from '../weather-list-item/weather-list-item';
+import React from 'react';
+import {ListItem} from './list-item/list-item';
+import {shortWeekDays} from '../../mock/weekDays';
 import './weather-list.scss';
 
-export default
-class WeatherList extends Component {
+export const WeatherList = (props) => {
 
-    constructor() {
-        super();
-        this.state = {
-            data: weatherData,
-            selected: 0
-        };
-    }
+    const {data, selected, onSelectItem, tempType} = props;
+    return (
+        <div className="weather-list">
+            { data.map((weather, i) =>
+                <ListItem key={i} {...weather} {...{tempType}} selected={selected === i}
+                week={getWeek(i)} onSelectItem={() => onSelectItem(i)}/>) }
+        </div>
+    )
+}
 
-    selectItem = (key) => {
-        this.setState({selected: key});
-    }
-
-    render() {
-        const {data, selected} = this.state;
-        return (
-            <div className="weather-list">
-                { data.map((weather, i) =>
-                    <WeatherListItem key={i} {...weather} selected={selected === i} onSelectItem={() => this.selectItem(i)}/>) }
-            </div>
-        )
-    }
+function getWeek (key) {
+    let day = new Date();
+    day.setDate(day.getDate() + key);
+    return shortWeekDays[day.getDay()];
 }

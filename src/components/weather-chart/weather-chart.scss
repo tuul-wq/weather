@@ -1,0 +1,16 @@
+.graph {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    height: 7rem;
+}
+
+.img-wrapper {
+    padding: 0 15px;
+    img { max-width: 100%; }
+}
+
+.hour-values {
+    display: flex;
+    justify-content: space-between;
+}

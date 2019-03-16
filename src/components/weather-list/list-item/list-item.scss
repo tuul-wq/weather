@@ -1,5 +1,3 @@
-// @import '~assets/images/';
-
 .weather-item {
     padding: 0.5rem;
     border: 1px solid transparent;
@@ -14,16 +12,11 @@
         background-color: #fbfbfb;
     }
 
-    .avg {
-        display: inline-block;
-        padding: 0 0.5rem;
-        &.night {
-            color: grey;
-        }
-    }
+    .avg-temp {
+        display: flex;
+        justify-content: space-around;
 
-    // .weather-image {
-    //     height: 4.25rem;
-    //     width: 4.25rem;
-    // }
+        .day { color: inherit; }
+        .night { color: grey }
+    }
 }

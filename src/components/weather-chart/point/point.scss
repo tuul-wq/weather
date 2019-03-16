@@ -3,12 +3,10 @@
     justify-content: flex-end;
     flex-direction: column;
 
-    .point-value {
-        position: relative;
-    }
-
     .point-column {
         background-color: rgb(255, 255, 161);
+        position: relative;
+        transition: 0.5s;
 
         &:before {
             content: '';
@@ -18,17 +16,27 @@
             border-radius: 50%;
             background-color: #f6e100;
             position: relative;
-            top: -5%;
+            top: -5px;
         }
-    }
 
-    .point-value {
-        margin-bottom: 0.5rem;
-        font-size: 14px;
+        .point-value {
+            margin-bottom: 0.5rem;
+            font-size: 14px;
+            position: absolute;
+            top: -2rem;
+            left: 50%;
+            transform: translate(-50%, 0);
+            z-index: 5;
+        }
 
         &.selected {
-            font-size: 17px;
-            font-weight: 600;
+            &:before {
+                background-color: #6f6606;
+            }
+            .point-value {
+                font-size: 17px;
+                font-weight: 600;
+            }
         }
     }
 }

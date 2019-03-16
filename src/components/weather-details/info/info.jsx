@@ -1,19 +1,14 @@
 import React from 'react';
 import {TempType} from '../../../mock/data';
-import {WeatherImage} from '../../shared/weather-image/weather-image';
+import {WeatherImage} from '../../../shared/components/weather-image/weather-image';
 import './info.scss';
 
-export const Info = ({current, tempType}) => {
-    let temp = current.temperature.tempC;
-    let metric = '°C';
-    if (tempType === TempType.Fahrenheit) {
-        temp = current.temperature.tempF;
-        metric = '°F';
-    }
+export const Info = ({weather, tempType}) => {
+    const metric = tempType === TempType.Celsius ? '°C' : '°F';
     return (
         <div className="info">
-            <WeatherImage code={current.type.code} size={'medium'}/>
-            <div className="temp">{getCurrentTemperature(temp) + metric}</div>
+            <WeatherImage code={weather.type.code} size={'medium'}/>
+            <div className="temp">{getCurrentTemperature(weather.temperature) + metric}</div>
         </div>
     )
 }

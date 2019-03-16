@@ -5,20 +5,19 @@ import axis from '../../assets/images/axis.png';
 import './weather-chart.scss';
 
 export const WeatherChart = (props) => {
-    const {temps, current} = props;
-    const values = current.tempC; //TODO: верный тип температуры
+    const {allTemps, temps} = props;
     const hours = ['12 am', '3 am', '6 am', '9 am',
         '12 pm', '3 pm', '6 pm', '9 pm', '12 am'];
 
-    const heights = getHeight(temps);
+    const heights = getHeight(allTemps, temps);
     return (
         <div className="chart-details">
             <div className="graph">
-                {values.map((v, index) =>
-                    (<Fragment key={index}>
-                        <Point key={index+'a'} value={v} height={heights[index]}/>
-                        {(index !== values.length - 1) ?
-                            <Square key={index+'b'} start={heights[index]} end={heights[index+1]} /> : null}
+                {temps.map((v, i) =>
+                    (<Fragment key={i}>
+                        <Point key={i+'a'} value={v} height={heights[i]} isCurrentHour={isCurrentHour(temps, i)}/>
+                        {(i !== temps.length - 1) ?
+                            <Square key={i+'b'} start={heights[i]} end={heights[i+1]} /> : null}
                     </Fragment>)
                 )}
             </div>
@@ -27,19 +26,24 @@ export const WeatherChart = (props) => {
                     <img src={axis} alt="axis"/>
                 </div>
                 <div className="hour-values">
-                    {hours.map((h, index) => <div key={index} className="hour">{h}</div>)}
+                    {hours.map((h, i) => <div key={i} className="hour">{h}</div>)}
                 </div>
             </div>
         </div>
     )
 }
 
-function getHeight(values) {
-    const tempMap = values.reduce((v, result) => [...result, ...v], [])
-                          .filter((t, index, self) => self.indexOf(t) === index)
+function isCurrentHour(values, index) {
+    const date = new Date();
+    return Math.round(date.getHours() * (values.length - 1) / 24) === index;
+}
+
+function getHeight(allTemps, current) {
+    const tempMap = allTemps.reduce((result, v) => [...result, ...v.temperature], [])
+                          .filter((t, i, self) => self.indexOf(t) === i)
                           .sort((a, b) => a - b);
-    const relativeCalues = tempMap.map((tm, index) => ({[tm]: +(index / tempMap.length).toFixed(2) }));
-    console.log(relativeCalues);
-    
-    return [10, 70, 30, 40, 90, 60, 40, 80, 100];
+    const relativeValues = tempMap.reduce((result, tm, i) =>
+        ({...result, [tm]: +(i / tempMap.length * 100 + 5).toFixed(0)}), {});
+
+    return current.map(temp => Object.entries(relativeValues).find(rv => +rv[0] === temp)[1])
 }

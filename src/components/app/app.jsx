@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import {weatherData, TempType} from '../../mock/data';
 import {WeatherList} from '../weather-list/weather-list';
 import {WeatherChart} from '../weather-chart/weather-chart';
@@ -10,39 +10,39 @@ class App extends Component {
 
   constructor() {
     super();
+    this._initialWeatherData = weatherData;
     this.state = {
-      data: weatherData,
+      data: this._setupWeather(TempType.Celsius),
       selected: 0,
       tempType: TempType.Celsius
     };
   }
 
+  _setupWeather = (tempType) => {
+    const key = tempType === TempType.Celsius ? 'tempC' : 'tempF';
+    return this._initialWeatherData.map(data => ({...data, temperature: data.temperature[key]}));
+  }
+
   onSelectItem = (key) => {
-    this.setState({
-      selected: key
-    });
+    this.setState({ selected: key });
   }
 
   onTempTypeChanged = () => {
-    // FIXME: выбор массива температур ЗДЕСЬ
     this.setState(({tempType}) => {
-      return {tempType: tempType === TempType.Celsius ? TempType.Fahrenheit : TempType.Celsius};
+      const newTempType = tempType === TempType.Celsius ? TempType.Fahrenheit : TempType.Celsius;
+      return {
+        data: this._setupWeather(newTempType),
+        tempType: newTempType
+      };
     });
-  }
-
-  cartTemps = () => {
-    const {tempType, data} = this.state;
-    const string = tempType === TempType.Celsius ? 'tempC' : 'tempF';
-    return data.map(d => d.temperature[string]);
   }
 
   render() {
     const {data, selected, tempType} = this.state;
-    const chartTemps = data
     return (
       <div className="content">
-        <WeatherDetails current={data[selected]} index={selected} {...{tempType}} onTempTypeChanged={this.onTempTypeChanged}/>
-        <WeatherChart current={data[selected].temperature} temps={this.cartTemps()}/>
+        <WeatherDetails weather={data[selected]} index={selected} {...{tempType}} onTempTypeChanged={this.onTempTypeChanged}/>
+        <WeatherChart temps={data[selected].temperature} allTemps={data}/>
         <WeatherList {...this.state} onSelectItem={this.onSelectItem}/>
       </div>
     );

@@ -4,12 +4,11 @@ import {shortWeekDays} from '../../mock/weekDays';
 import './weather-list.scss';
 
 export const WeatherList = (props) => {
-
-    const {data, selected, onSelectItem, tempType} = props;
+    const {data, selected, onSelectItem} = props;
     return (
         <div className="weather-list">
             { data.map((weather, i) =>
-                <ListItem key={i} {...weather} {...{tempType}} selected={selected === i}
+                <ListItem key={i} {...weather} selected={selected === i}
                 week={getWeek(i)} onSelectItem={() => onSelectItem(i)}/>) }
         </div>
     )

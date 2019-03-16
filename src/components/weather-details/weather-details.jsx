@@ -5,16 +5,16 @@ import {Info} from './info/info';
 import './weather-details.scss';
 
 export const WeatherDetails = (props) => {
-    const {current, data, tempType, onTempTypeChanged, index} = props;
+    const {weather, tempType, onTempTypeChanged, index} = props;
     return (
         <div id="details">
             <div className="header">
-                <Title link={current.type.link} {...{index}}/>
+                <Title link={weather.type.link} {...{index}}/>
                 <Switch {...{onTempTypeChanged}} {...{tempType}}/>
             </div>
             <div className="details">
-                <div className="info"><Info {...{current}} {...{tempType}}/></div>
-                {/* <div className="details-switch"><DetailsSwitch /></div> */}
+                <Info {...{weather}} {...{tempType}}/>
+                {/* <div className="details-switch"><DetailsSwitch /></div> TODO: in version 1.1 */ }
             </div>
         </div>
     )
